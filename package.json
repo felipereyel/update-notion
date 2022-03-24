@@ -4,7 +4,7 @@
   "description": "",
   "main": "src/index.js",
   "scripts": {
-    "prepare": "webpack"
+    "prepare": "ncc build src/index.js"
   },
   "keywords": [],
   "author": "",
@@ -16,8 +16,6 @@
     "form-data": "^4.0.0"
   },
   "devDependencies": {
-		"webpack": "^4.42.0",
-		"webpack-cli": "^3.3.11",
-		"webpack-node-externals": "^1.7.2"
+    "@zeit/ncc": "^0.22.3"
   }
 }
