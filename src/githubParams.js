@@ -1,47 +1,47 @@
 const core = require("@actions/core");
 const github = require("@actions/github");
 
-function escapeRegExp(string) {
-  return string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"); // $& means the whole matched string
-}
-
 function extractGithubParams() {
   const pullRequest = github.context.payload.pull_request;
 
-  const requiredPrefix = escapeRegExp(
-    core.getInput("required-prefix", { required: false }) || ""
-  );
+  const isDraft = pullRequest?.draft;
+  const isMerged = pullRequest?.merged;
 
-  const requiredSuffix = escapeRegExp(
-    core.getInput("required-suffix", { required: false }) || ""
-  );
+  const statusKey = isMerged
+    ? "merged"
+    : isDraft
+    ? "draft"
+    : github.context.payload.action;
 
-  const isDraft = github.context.payload.pull_request?.draft
-  const isMerged = github.context.payload.pull_request?.merged
-  const statusKey = isMerged ? 'merged' : isDraft ? 'draft' : github.context.payload.action
   const status = core.getInput(statusKey, { required: false });
 
-  const githubUrlProperty = core.getInput("github-url-property-name", { required: false }) ||
-    "Github Url";
+  const databaseId = core.getInput("database-id", { required: true });
 
-  const statusProperty = core.getInput("status-property-name", { required: false }) || "Status";
+  const prProperty =
+    core.getInput("pr-property", { required: false }) || "PR URL";
+
+  const statusProperty =
+    core.getInput("status-property", { required: false }) || "Status";
+
+  if (!status) {
+    core.info(
+      `The status ${statusKey} is not mapped with a value in the action definition. Hence, the task update body does not contain a status update`
+    );
+  }
 
   return {
     metadata: {
-      statusKey: statusKey
+      statusKey: statusKey,
     },
     pullRequest: {
-      body: pullRequest.body ?? '',
       href: pullRequest.html_url,
-      status: status
+      status: status,
     },
-    suffix: requiredSuffix,
-    prefix: requiredPrefix,
     notionProperties: {
-      githubUrl: githubUrlProperty,
-      status: statusProperty
-    }
-  }
+      prProperty: prProperty,
+      status: statusProperty,
+    },
+  };
 }
 
-module.exports = { extractParams: extractGithubParams }
+module.exports = { extractParams: extractGithubParams };

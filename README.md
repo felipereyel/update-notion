@@ -1,25 +1,18 @@
 # Github Action - Update Notion
 
+Updates a notion page property (specified by the `status-property` param)
+with the choosen status (specified individually by each of the `<name-of-possible-action>` params).
+To match a page with a pull request, the page must have a property with the pull request link (specified by the `pr-property` param).
+
 ## Inputs
 
-### `status-property-name`
+### `status-property`
 
-Name of the status property that will receive a new tag based on the triggered
-action
+Name of the status property that will receive a new tag based on the triggered action
 
-### `url-property-name`
+### `pr-property`
 
-Name of the url property that will receive the url of the PR
-
-### `required-suffix`
-
-In case you don't want to parse any Notion link in the PR description, you can
-ensure that a suffix is present with this parameter
-
-### `required-prefix`
-
-In case you don't want to parse any Notion link in the PR description, you can
-ensure that a prefix is present with this parameter
+Name of the property that will filter the search of the PR URL
 
 ### `<name-of-possible-action>`
 
@@ -32,11 +25,10 @@ input a mapping value with this input
 uses: actions/update-notion@v1.1
 env:
   NOTION_BOT_SECRET_KEY: ${{ secrets.NOTION_BOT_SECRET_KEY }}
+  NOTION_DATABASE_ID: ${{ secrets.NOTION_DATABASE_ID }}
 with:
-    - required-suffix: ')'
-    - required-prefix: '[Notion ticket]('
-    - status-property-name: 'Status'
-    - url-property-name: 'Github URL'
+    - status-property: 'Status'
+    - pr-property: 'PR URL'
     - opened: 'In progresss'
     - edited: 'In progress'
     - closed: 'Done'
@@ -49,8 +41,6 @@ with:
 
 - **merged**
 - **draft**
-
-
 - assigned
 - unassigned
 - labeled
