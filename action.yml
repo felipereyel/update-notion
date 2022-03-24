@@ -62,4 +62,4 @@ inputs:
     required: false
 runs:
   using: "node12"
-  main: "main/index.js"
+  main: "dist/index.js"
