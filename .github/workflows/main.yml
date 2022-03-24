@@ -17,7 +17,7 @@ jobs:
           NOTION_BOT_SECRET_KEY: ${{ secrets.NOTION_BOT_SECRET_KEY }}
           NOTION_DATABASE_ID: ${{ secrets.NOTION_DATABASE_ID }}
         with:
-          status-property: "Review Status"
+          status-property: "Status"
           pr-property: "PR Link"
 
           draft: "In progress"
