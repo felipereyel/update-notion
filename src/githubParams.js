@@ -3,13 +3,11 @@ const github = require("@actions/github");
 
 function extractGithubParams() {
   const pullRequest = github.context.payload.pull_request;
+  const { draft, merged } = pullRequest;
 
-  const isDraft = pullRequest?.draft;
-  const isMerged = pullRequest?.merged;
-
-  const statusKey = isMerged
+  const statusKey = merged
     ? "merged"
-    : isDraft
+    : draft
     ? "draft"
     : github.context.payload.action;
 
