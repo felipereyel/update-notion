@@ -1,4 +1,4 @@
-name: "Update Notion"
+name: "PR to notion"
 description: "Will update notion pages on PR update"
 author: "Felipe Reyel"
 branding:
