@@ -59,3 +59,10 @@ with:
 ## Contributing
 
 Feel free to mke Pull Requests to improve this action.
+
+To compile the file :
+
+```bash
+npm install
+npm run prepare
+```
