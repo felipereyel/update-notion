@@ -29,7 +29,7 @@ Your action needs to be able to access the following envs:
 ## Example usage
 
 ```
-uses: actions/pr-to-notion@v2.0.0
+uses: felipereyel/update-notion@v2.1.0
 env:
   NOTION_BOT_SECRET_KEY: ${{ secrets.NOTION_BOT_SECRET_KEY }}
   NOTION_DATABASE_ID: ${{ secrets.NOTION_DATABASE_ID }}
