@@ -5,6 +5,7 @@ const { extractParams } = require("./githubParams");
 
 async function main() {
   const params = extractParams();
+  if (!params.pullRequest.status) return;
   const notion = new Client({
     auth: process.env.NOTION_BOT_SECRET_KEY,
   });
@@ -25,13 +26,13 @@ async function main() {
 
     await notion.pages.update({
       page_id: page.id,
-      properties: params.pullRequest.status
-        ? {
-            [params.notionProperties.status]: {
-              name: params.pullRequest.status,
-            },
-          }
-        : {},
+      properties: {
+        [params.notionProperties.status]: {
+          select: {
+            name: params.pullRequest.status,
+          },
+        },
+      },
     });
   } catch (error) {
     core.setFailed(error);
