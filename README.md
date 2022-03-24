@@ -19,6 +19,13 @@ Name of the property that will filter the search of the PR URL
 If you want a different status than the name of the triggered action, you can
 input a mapping value with this input
 
+## Envs
+
+Your action needs to be able to access the following envs:
+
+- NOTION_DATABASE_ID
+- NOTION_BOT_SECRET_KEY (create an integration to get one. Then share the database with the integration)
+
 ## Example usage
 
 ```
