@@ -1863,8 +1863,6 @@ function extractGithubParams() {
 
   const status = core.getInput(statusKey, { required: false });
 
-  const databaseId = core.getInput("database-id", { required: true });
-
   const prProperty =
     core.getInput("pr-property", { required: false }) || "PR URL";
 
