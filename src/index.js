@@ -24,16 +24,20 @@ async function main() {
 
     const [page] = pages.results;
 
-    await notion.pages.update({
-      page_id: page.id,
-      properties: {
-        [params.notionProperties.status]: {
-          select: {
-            name: params.pullRequest.status,
+    if (page) {
+      await notion.pages.update({
+        page_id: page.id,
+        properties: {
+          [params.notionProperties.status]: {
+            select: {
+              name: params.pullRequest.status,
+            },
           },
         },
-      },
-    });
+      });
+    } else {
+      core.info(`No page found for ${params.pullRequest.href}`);
+    }
   } catch (error) {
     core.setFailed(error);
   }
